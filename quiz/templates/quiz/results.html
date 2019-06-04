@@ -1,0 +1,50 @@
+{% extends 'quiz/layout.html' %}
+{% load static %}
+
+{% block title %}Results{% endblock %}
+
+{% block main %}
+    {% if highscore %}
+    <div class="card-header"><strong>HIGHSCORE!</strong></div>
+    <div class="card-body">
+        <p>Enter your name to join the leader board!</p>
+        <form action="{% url 'quiz:leaderboard' %}" method="post">
+            {% csrf_token %}
+            <input class="input input-text" name="name" type="text" placeholder="Enter name" required autofocus>
+            <input name="score" type="hidden" value="{{ score }}">
+            <button type="submit" class="btn my-2">Add to Leader-Board!</button>
+        </form>
+        <img class="img-fluid" src="{% static 'quiz\images\trans_geek.png' %}" alt="Clever world smiley">
+        <p>You scored {{ score }}!</p>
+        {% if score > average %}
+            <p>That's above the average {{ average }}!</p>
+        {% elif score == average %}
+            <p>That's the average score for this quiz, not bad!</p>
+        {% else %}
+            <p>That's below the average score {{ average }}</p>
+        {% endif %}
+    {% else %}
+    <div class="card-header"><strong>How did you do..?</strong></div>
+    <div class="card-body">
+        {% if score > average %}
+            <img class="img-fluid" src="{% static 'quiz\images\trans_happy.png' %}" alt="Happy world emoji">
+            <p>You scored {{ score }}!</p>
+            <p>That's above the average {{ average }}!</p>
+        {% elif score == average %}
+            <img class="img-fluid" src="{% static 'quiz\images\trans_smiley.png' %}" alt="Smiley world emoji">
+            <p>You scored {{ score }}!</p>
+            <p>That's the average score for this quiz, not bad!</p>
+        {% else %}
+            <img class="img-fluid" src="{% static 'quiz\images\trans_upsidedown.png' %}" alt="Upside-down world emoji">
+            <p>You scored {{ score }}!</p>
+            <p>That's below the average score {{ average }}</p>
+        {% endif %}
+    {% endif %}
+    </div>
+    <div class="card-footer">
+        <button class="btn btn-lg">
+            <a class="trouble" href="{% url 'quiz:index' %}">Let's go again!</a>
+        </button>
+    </div>
+
+{% endblock %}

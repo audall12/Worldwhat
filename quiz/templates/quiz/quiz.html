@@ -1,0 +1,44 @@
+{% extends 'quiz/layout.html' %}
+{% load static %}
+
+{% block title %} Quiz {% endblock %}
+
+{% block main %}
+
+    <div class="card-header">
+        {% if guess %}
+        <p><strong>{{ points }} point{{ points|pluralize }}!</strong> The temperature was {{ prev_temp }}</p><br>
+        {% endif %}
+    </div>
+    <div class="card-body">
+        {% if points == 11 or points == 10 %}
+            <img class="img-fluid" src="{% static 'quiz\images\trans_geek.png' %}" alt="cartoon smiley planet earth">
+        {% elif points > 2 %}
+            <img class="img-fluid" src="{% static 'quiz\images\trans_happy.png' %}" alt="cartoon smiley planet earth">
+        {% elif points > 0  %}
+            <img class="img-fluid" src="{% static 'quiz\images\trans_smiley.png' %}" alt="cartoon smiley planet earth">
+        {% else %}
+            <img class="img-fluid" src="{% static 'quiz\images\trans_upsidedown.png' %}" alt="cartoon smiley planet earth">
+        {% endif %}
+    </div>
+<p><strong class="text">{{ question_num }}/15</strong></p>
+<p>What's the temperature in {{ name }}, {{ country_code }}?</p>
+    {% if question_num < 15 %}
+    <form class="md-form" action="{% url 'quiz:guess' question_num scale %}" method="post">
+        {% csrf_token %}
+        <input name="guess" type="number" class="input" autofocus required>
+        <input name="temp" type="hidden" value="{{ temp }}">
+        <input name="score" type="hidden" value="{{ score }}">
+        <div class="card-footer"><button class="btn btn-lg">Guess!</button></div>
+    </form>
+    {% else %}
+    <form action="{% url 'quiz:results' %}" method="post">
+        {% csrf_token %}
+        <input name="guess" type="number" class="input" autofocus required>
+        <input name="temp" type="hidden" value="{{ temp }}">
+        <input name="score" type="hidden" value="{{ score }}">
+        <div class="card-footer"><button class="btn btn-lg btn-default">Guess!</button></div>
+    </form>
+    {% endif %}
+
+{% endblock %}

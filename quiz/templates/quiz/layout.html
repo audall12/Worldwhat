@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Guess the weather around the world">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+
+        <!-- CSS CUSTOM -->
+    <link rel="stylesheet" type="text/css" href="{% static 'quiz/style.css' %}">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-sm navbar-light">
+  <a class="navbar-brand" href="{% url 'quiz:index' %}">
+      <img src="{% static 'quiz\images\trans_geek.png' %}" alt="Logo" id="logo">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'quiz:leaderboard' %}">Leader Board</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'quiz:index' %}">Temperate Quiz</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+    <div class="container text-center">
+        <div class="card text-center mx-auto my-5" id="card">
+    {% block main %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>

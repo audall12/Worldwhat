@@ -1,0 +1,28 @@
+{% extends 'quiz/layout.html' %}
+{% load static %}
+
+{% block title %}Weather What?{% endblock %}
+
+{% block main %}
+    <div class="card-header">...Ready to try the quiz?</div>
+    <div class="card-body">
+        <img src="{% static 'quiz\images\trans_geek.png' %}" alt="cartoon smiley planet earth" class="img-fluid">
+    </div>
+    <div class="card-footer">
+        <p>Before we go, you need to chose <strong>Celsius</strong> or <strong>Fahrenheit</strong></p>
+        <div class="row justify-content-center">
+            <div class="col-sm-5 col-5 my-2">
+                <form class="inlineForm" action="{% url 'quiz:startquiz' 1 'celsius' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-lg">&deg;C</button>
+                </form>
+            </div>
+            <div class="col-sm-5 col-5 my-2">
+                <form class="inlineForm" action="{% url 'quiz:startquiz' 1 'fahrenheit' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-lg">&deg;F</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,4 @@
+python-3
+requests-2.2.1
+Django-2.2.1
+pycountry-18.12.8
